@@ -20,7 +20,9 @@ Route::get('/desenvolvedor_projetos', function () {
             foreach($d->projetos as $p){
                 echo "<li>";
                 echo "Nome:" .$p->nome . "|";
-                echo "Horas:" .$p->estimativa_horas;
+                echo "Horas do projeto: " .$p->estimativa_horas . "|";
+                echo "Horas trabalhadas: " .$p->pivot->horas_semanais;
+
                 echo "</li>";
 
             }
@@ -33,8 +35,7 @@ Route::get('/desenvolvedor_projetos', function () {
 });
 Route::get('/desenvolvedor_projetos_toJson', function () {
 
-    $desenvolvedores = Desenvolvedor::all();
-    
+    $desenvolvedores = Desenvolvedor::with('projetos')->get();
     
     return $desenvolvedores->toJson();
 });
