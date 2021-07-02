@@ -62,12 +62,19 @@ Route::get('/alocar',function(){
     $proj = Projeto::find(4);
 
     if(isset($proj)){
-        //$proj->desenvolvedores()->attach(1, ['horas_semanais' => 50] );
         $proj->desenvolvedores()->attach([
+                1 => ['horas_semanais' => 20],
                 2 => ['horas_semanais' => 40],
                 3 => ['horas_semanais' => 60],
             ]);
 
+    }
+});
+Route::get('/desalocar',function(){
+    $proj = Projeto::find(4);
+
+    if(isset($proj)){
+        $proj->desenvolvedores()->detach([1,2,3]);
     }
 });
 Route::get('/projetos_desenvolvedor_toJson', function () {
